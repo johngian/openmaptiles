@@ -247,6 +247,11 @@ ifeq (,$(wildcard build/mapping.yaml))
 	$(DOCKER_COMPOSE) run $(DC_OPTS) openmaptiles-tools generate-imposm3 $(TILESET_FILE) > $@
 endif
 
+build/tegola.toml: init-dirs
+ifeq (,$(wildcard build/tegola.toml))
+	$(DOCKER_COMPOSE) run $(DC_OPTS) openmaptiles-tools generate-tegolalayers $(TILESET_FILE) > $@
+endif
+
 .PHONY: build-sql
 build-sql: init-dirs
 ifeq (,$(wildcard build/sql/run_last.sql))

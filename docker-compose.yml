@@ -102,3 +102,13 @@ services:
       - "${PPORT:-8090}:${PPORT:-8090}"
     volumes:
       - .:/tileset
+
+  tegola:
+    image: "tegola:latest"
+    volumes:
+      - ./build/tegola.toml:/etc/tegola.toml
+    networks:
+      - postgres_conn
+    ports:
+      - "${TEGOLA_PORT}:8080"
+    command: serve --config /etc/tegola.toml --no-cache
